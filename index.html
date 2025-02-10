@@ -1,0 +1,101 @@
+<html>
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            overflow: hidden;
+        }
+        #imagenDiv {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('473c7b8267145aa9962d2196417d7005.jpg');
+            background-size: cover;
+            background-position: center;
+            display: none; /* Ocultar inicialmente */
+            z-index: 10;
+            animation: girarYMoverse 10s linear infinite;
+        }
+        @keyframes girarYMoverse {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(calc(100vw - 100%), 0) rotate(90deg);
+            }
+            50% {
+                transform: translate(calc(100vw - 100%), calc(100vh - 100%)) rotate(180deg);
+            }
+            75% {
+                transform: translate(0, calc(100vh - 100%)) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="text-center">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">Calculadora de Salud</h1>
+        <p class="text-gray-600 mb-4">Ingresa tu peso en kg <span class="text-yellow-500">ejemplo (70)</span></p>
+        <input id="pesoInput" type="number" class="w-full max-w-xs p-3 border border-gray-300 rounded mb-4 text-center" placeholder="0">
+        <button onclick="calcularPeso()" class="bg-blue-600 text-white py-2 px-6 rounded">Calcular</button>
+        <p id="resultado" class="text-gray-800 mt-4"></p>
+    </div>
+
+    <!-- Div para la imagen de fondo -->
+    <div id="imagenDiv"></div>
+
+    <!-- Audio de fondo -->
+    <audio id="audioFondo" loop>
+        <source src="utomp3.com - intro telefono perreo ultra saturado.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <script>
+        function calcularPeso() {
+            const peso = document.getElementById('pesoInput').value;
+            const resultado = document.getElementById('resultado');
+            const imagenDiv = document.getElementById('imagenDiv');
+            const audioFondo = document.getElementById('audioFondo');
+
+            if (peso) {
+                resultado.textContent = `Tu peso es ${peso}kg`;
+                if (peso >= 100) {
+                    // Mostrar la imagen en toda la pantalla y reproducir el audio
+                    imagenDiv.style.display = "block";
+                    audioFondo.play();
+
+                    // Abrir múltiples ventanas emergentes
+                    abrirVentanasEmergentes();
+                } else {
+                    // Ocultar la imagen y detener el audio si el peso es menor a 100 kg
+                    imagenDiv.style.display = "none";
+                    audioFondo.pause();
+                    audioFondo.currentTime = 0; // Reiniciar el audio
+                }
+            } else {
+                resultado.textContent = '';
+            }
+        }
+
+        function abrirVentanasEmergentes() {
+            const mensaje = "¡¡¡¡¡¡Eres una gordaaaaaaaaaaaa MLP!!!!!!!!";
+            const cantidadVentanas = 5; // Número de ventanas emergentes que se abrirán
+
+            for (let i = 0; i < cantidadVentanas; i++) {
+                setTimeout(() => {
+                    alert(mensaje); // Abre una ventana emergente con el mensaje
+                }, i * 500); // Retraso para que no se abran todas al mismo tiempo
+            }
+        }
+    </script>
+</body>
+</html>
