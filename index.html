@@ -3,6 +3,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Importante para responsive -->
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -13,14 +14,15 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-image: url('473c7b8267145aa9962d2196417d7005.jpg');
-            background-size: cover;
-            background-position: center;
+            width: 100vw; /* Ocupa el ancho completo de la pantalla */
+            height: auto; /* Altura automática para mantener la proporción */
             display: none; /* Ocultar inicialmente */
             z-index: 10;
             animation: girarYMoverse 10s linear infinite;
+        }
+        #imagenDiv img {
+            width: 100%; /* La imagen ocupa el 100% del contenedor */
+            height: auto; /* Mantiene la proporción de la imagen */
         }
         @keyframes girarYMoverse {
             0% {
@@ -42,16 +44,25 @@
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen bg-gray-100">
-    <div class="text-center">
+    <div class="text-center p-4">
         <h1 class="text-3xl font-bold text-gray-800 mb-4">Calculadora de Salud</h1>
         <p class="text-gray-600 mb-4">Ingresa tu peso en kg <span class="text-yellow-500">ejemplo (70)</span></p>
-        <input id="pesoInput" type="number" class="w-full max-w-xs p-3 border border-gray-300 rounded mb-4 text-center" placeholder="0">
+        <input 
+            id="pesoInput" 
+            type="number" 
+            class="w-full max-w-xs p-3 border border-gray-300 rounded mb-4 text-center" 
+            placeholder="0" 
+            oninput="validarNumero(this)" 
+            onkeypress="return event.charCode >= 48 && event.charCode <= 57" 
+        >
         <button onclick="calcularPeso()" class="bg-blue-600 text-white py-2 px-6 rounded">Calcular</button>
         <p id="resultado" class="text-gray-800 mt-4"></p>
     </div>
 
     <!-- Div para la imagen de fondo -->
-    <div id="imagenDiv"></div>
+    <div id="imagenDiv">
+        <img src="473c7b8267145aa9962d2196417d7005.jpg" alt="Imagen divertida">
+    </div>
 
     <!-- Audio de fondo -->
     <audio id="audioFondo" loop>
@@ -87,7 +98,7 @@
         }
 
         function abrirVentanasEmergentes() {
-            const mensaje = "¡¡¡¡¡¡Eres una gordaaaaaaaaaaaa MLP!!!!!!!!";
+            const mensaje = "Eres una gordaaaaaaaaaaaa MLP";
             const cantidadVentanas = 5; // Número de ventanas emergentes que se abrirán
 
             for (let i = 0; i < cantidadVentanas; i++) {
@@ -95,6 +106,11 @@
                     alert(mensaje); // Abre una ventana emergente con el mensaje
                 }, i * 500); // Retraso para que no se abran todas al mismo tiempo
             }
+        }
+
+        // Validar que solo se ingresen números
+        function validarNumero(input) {
+            input.value = input.value.replace(/[^0-9]/g, ''); // Elimina caracteres no numéricos
         }
     </script>
 </body>
